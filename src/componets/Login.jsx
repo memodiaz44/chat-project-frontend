@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
+  const history = useHistory();
+
   const [formData, setFormData] = useState({
     username: '',
     password: ''
@@ -24,6 +27,13 @@ function Login() {
       .then((data) => {
         // Handle the response from the server
         console.log(data);
+
+        // Check if there is no account and redirect to register
+        if (data.noAccount) {
+          history.push('/register');
+        } else {
+          // Continue with your login logic
+        }
       })
       .catch((error) => {
         // Handle any errors
